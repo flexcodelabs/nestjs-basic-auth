@@ -1,0 +1,107 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  created: DateTime!
+  lastUpdated: DateTime!
+  name: String!
+  username: String!
+  total: Float
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Logout {
+  message: String!
+}
+
+type Access {
+  id: String
+  role: String
+  user: User
+  project: Project
+  created: DateTime!
+  lastUpdated: DateTime!
+}
+
+type Project {
+  id: String
+  name: String
+  description: String
+  created: DateTime
+  lastUpdated: DateTime
+  createdBy: User
+  invitations: [Invitation!]
+  total: Float
+  access: [Access!]
+}
+
+type Invitation {
+  id: String!
+  role: String
+  created: DateTime!
+  lastUpdated: DateTime!
+  createdBy: User
+  user: User
+  project: Project
+}
+
+type Query {
+  getUsers(params: Params!): [User!]!
+  login(login: Login!): User!
+  me: User!
+  getUser(id: String!): User!
+}
+
+input Params {
+  page: Float
+  pageSize: Float
+  search: String
+  paging: Boolean
+  status: String
+  property: String
+  direction: String
+  id: String
+  filters: [GenericFilter!]
+}
+
+input GenericFilter {
+  key: String!
+  value: String!
+}
+
+input Login {
+  password: String!
+  email: String!
+}
+
+type Mutation {
+  register(user: UserInput!): User!
+  updateUser(user: UserUpdate!): User!
+  logout: Logout!
+  updatePassword(user: UpdatePassword!): User!
+}
+
+input UserInput {
+  email: String!
+  name: String!
+  username: String!
+  password: String!
+}
+
+input UserUpdate {
+  email: String
+  name: String
+  username: String
+  password: String
+}
+
+input UpdatePassword {
+  oldPassword: String!
+  newPassword: String!
+}

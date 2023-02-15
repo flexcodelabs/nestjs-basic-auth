@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  dash-api-test:
+    build: .
+    command: npm run test:e2e
+    environment:
+      - FORCE_COLOR=3
+    volumes:
+      - ./src:/app/src
+      - ./test:/app/test
+      - ./package.json:/app/package.json
+    networks:
+        - dash-test-network
+    depends_on:
+      - dash-db-test
+    env_file:
+      - .env.test
+
+  dash-db-test:
+    image: postgres:14.2-alpine3.15
+    env_file:
+      - .env.test
+    restart: always
+    networks:
+      - dash-test-network
+networks:
+  dash-test-network:
+        driver: bridge

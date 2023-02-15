@@ -1,0 +1,12 @@
+dist
+node_modules
+README.md
+.gitignore
+.github
+.prettierrc
+.eslintrc
+nest-cli.json
+docker
+Dockerfile
+Dockerfile*
+docker-compose*
